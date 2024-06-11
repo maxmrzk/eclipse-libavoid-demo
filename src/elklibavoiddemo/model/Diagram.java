@@ -54,6 +54,8 @@ public class Diagram {
         graph.getContainedEdges().add(edge);
         edge.getSources().add(vertex1);
         edge.getTargets().add(vertex3);
+        
+        this.engine.layout(graph, new BasicProgressMonitor());
 
         return graph;
 	}
@@ -78,7 +80,6 @@ public class Diagram {
         graph.setProperty(CoreOptions.MARGINS, margin);
         graph.setProperty(CoreOptions.SPACING_PORTS_SURROUNDING, margin);
         graph.setProperty(CoreOptions.NODE_LABELS_PLACEMENT, NodeLabelPlacement.insideCenter());
-        graph.setProperty(CoreOptions.ALGORITHM, "libavoid");
         
         /*
         double x = 10; 
@@ -154,6 +155,13 @@ public class Diagram {
 		n1.setProperty(CoreOptions.PORT_CONSTRAINTS, PortConstraints.FIXED_POS);
 		n1.setProperty(CoreOptions.HYPERNODE, true);
 		
+		var n321 = factory.createElkNode();
+		graph.getChildren().add(n321);
+		n321.setLocation(20, 20);
+		n321.setDimensions(30, 40);
+		n321.setProperty(CoreOptions.PORT_CONSTRAINTS, PortConstraints.FIXED_POS);
+		n321.setProperty(CoreOptions.HYPERNODE, true);
+		
 		var p1 = factory.createElkPort();
 		n1.getPorts().add(p1);
 		p1.setLocation(30, 10);
@@ -161,7 +169,7 @@ public class Diagram {
 		p1.setProperty(CoreOptions.PORT_SIDE, PortSide.EAST);
 		
 		var p2 = factory.createElkPort();
-		n1.getPorts().add(p2);
+		n321.getPorts().add(p2);
 		p2.setLocation(30, 20);
 		p2.setDimensions(5, 5);
 		p2.setProperty(CoreOptions.PORT_SIDE, PortSide.EAST);
@@ -226,6 +234,11 @@ public class Diagram {
 		graph.getContainedEdges().add(e3);
 		e3.getSources().add(p6);
 		e3.getTargets().add(p5);
+		
+		var e4 = factory.createElkEdge();
+		graph.getContainedEdges().add(e4);
+		e4.getSources().add(p2);
+		e4.getTargets().add(p4);
 		
 		var n5 = factory.createElkNode();
 		n4.getChildren().add(n5);
